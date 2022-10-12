@@ -28,6 +28,17 @@ def test():
     f = np.array(np.random.uniform(-12, 12, 5))
     x = iter_solve(a, f)
     print(np.linalg.norm(a.dot(x) - f))
+    f1 = np.matrix(f)
+    f1.resize((5, 1))
+    x1 = np.matrix(x)
+    x1.resize((5, 1))
+    print(a)
+    print(f1)
+    print(x1)
+    res = np.matrix(a.dot(x))
+    res.resize((5, 1))
+    print(res)
+
 
 
 test()

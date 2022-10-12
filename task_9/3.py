@@ -1,6 +1,3 @@
-import numpy as np
-
-
 class Polynomial:
     def __init__(self, coef):
         self.__coef = coef
@@ -49,10 +46,19 @@ class Polynomial:
         r = []
         n = len(self) - 1
         for i in self.__coef:
-            c = f"{round(i, 3)}x^{n}" if i >= 0 else f"({round(i, 3)})x^{n}" if i < 0 else ""
+            c = f"{round(i, 3)}x^{n}" if i >= 0 else f"({round(i, 3)})x^{n}"
             r.append(c)
             n -= 1
         return (" + ".join(r))[:-3]
+
+    def __mul__(self, other):
+        a, b = self.__coef, other.__coef
+        l = len(a) + len(b) - 1
+        c = [0 for i in range(l)]
+        for i in range(len(a)):
+            for j in range(len(b)):
+                c[i + j] += a[i] * b[j]
+        return Polynomial(c)
 
 
 def bairstow_method_one(p: Polynomial, it=100):
@@ -76,7 +82,6 @@ def bairstow_method(a):
     q = []
     while len(a) > 2:
         p = bairstow_method_one(a)
-        print(p, a)
         q.append(p)
         a = a / p
     q.append(a)
@@ -84,4 +89,8 @@ def bairstow_method(a):
 
 
 a = Polynomial([1, 4, 10, -14, 8, 0, 1])
-print(bairstow_method(a))
+res = bairstow_method(a)
+b = Polynomial([1])
+for i in res:
+    b = b * i
+print(b)

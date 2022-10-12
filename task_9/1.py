@@ -31,9 +31,12 @@ def gauss_solve(a1: np.matrix, f: np.matrix):
 
 def test():
     a = np.matrix(np.random.uniform(-12, 12, (5, 5)))
-    f = np.matrix(np.random.uniform(-12, 12, (5, 1)))
+    f = np.matrix(np.random.uniform(-12, 12, (5, 3)))
     x = gauss_solve(a, f)
+    print(a)
+    print(f)
     print(a * x)
+    print(x)
     print(np.linalg.norm(a * x - f))
 
 
